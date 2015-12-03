@@ -19,3 +19,6 @@ As a developer who’s recently learned about MongoDB and the MEAN stack, I want
 As a developer I want the user to have the option to login via traditional email/password (local auth) or via their Google account (OAuth) so I can gain experience providing mixed authentication options. (Must-have, phase 1)
 
 ### Wireframes
+
+![alt text](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/LevelUp/images/wireframe1.png "Login and home screens")
+
