@@ -22,3 +22,5 @@ As a developer I want the user to have the option to login via traditional email
 
 ![alt text](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/LevelUp/images/wireframe1.png "Login and home screens")
 
+![alt text](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/LevelUp/images/wireframe2.png "Login and home screens")
+
