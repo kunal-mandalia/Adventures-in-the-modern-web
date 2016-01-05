@@ -56,7 +56,7 @@ The relationship between these collections is as follows:
 
 The primary reason for choosing MongoDB is that it runs JavaScript hence addressing user story 7. Mongoose will be used to enforce the following schemas for the mentioned collections:
 
-```json
+```
 db.user: {
 	“_id”: Object Id,
     “name”: String,
