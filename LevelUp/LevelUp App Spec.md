@@ -112,9 +112,10 @@ In terms of the schema design, I’ve tried to bear in mind two principles (high
 Store what you query for
 Principle of least cardinality - a key part being not to nest arrays which grow without bound within a mongo document.
 Despite the fact that on the dashboard screen the user is presented with goals and their associated actions, nesting actions within goals (store what you query for) would violate the principle of least cardinality - causing potential issues if the list of goals associated with a goal grows too large (which could happen for high frequency actions). In fact, any of the collections may grow without bound hence they’re separated.
-API design
 
-The supported relative URI routes along with the http verb actions available for LeveUp are shown below:
+#### API design
+
+The API will be RESTful, the supported relative URI routes along with the http verb actions available for LeveUp are shown below:
 
 | http verb(s) | Relative URI | Description | Returns |
 | ------------ | ------------ | ----------- | ------- |
