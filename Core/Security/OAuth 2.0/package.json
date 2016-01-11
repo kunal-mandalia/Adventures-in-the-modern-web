@@ -1,0 +1,20 @@
+{
+  "name": "oauth2wrapper",
+  "version": "1.0.0",
+  "description": "A wrapper to support OAuth2.0 web server flow. I wrote it to learn about OAuth2.0.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "oauth2"
+  ],
+  "author": "Kunal Mandalia",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "mongoose": "^4.3.5",
+    "request": "^2.67.0"
+  }
+}
