@@ -19,7 +19,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-// routes =============================================================
+// routes ============================================================
 require('./app/routes.js')(app, ApiProvider, request); // load our routes and pass in our app
 
 console.log(apiprovider);
