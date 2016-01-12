@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+    <title>OAuth 2.0 demo</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:50px; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="text-center">
+        <h1>OAuth 2.0 demo</h1>
+        <h3><%=api.provider%> api</h3><br>
+    </div>
+
+
+    <table class="table table-responsive table-hover col-md-10" >
+    	<tr>
+    		<td>
+    			authorization_URI
+    		</td>
+    		<td>
+    			<%= api.authorization_URI %>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			access_Token_URI
+    		</td>
+    		<td>
+    			<%=api.access_Token_URI%>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			client_id
+    		</td>
+    		<td>
+    			<%=api.client_id%>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			client_secret
+    		</td>
+    		<td>
+    			<%=api.client_secret%>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			scope
+    		</td>
+    		<td>
+    			<%=api.scope%>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			redirect_uri
+    		</td>
+    		<td>
+    			<%=api.callback_URI%>
+    		</td>
+    	</tr>
+    	    	<tr>
+    		<td>
+    			authorization_code
+    		</td>
+    		<td>
+    			<%=api.authorization_code%>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			access_token
+    		</td>
+    		<td>
+    			<%=api.access_token%>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			refresh_token
+    		</td>
+    		<td>
+    			<%=api.refresh_token%>
+    		</td>
+    	</tr>
+    </table>
+
+    <!-- TODO: implement refresh api -->
+	<button class="btn btn-primary" type="button" name="delete" onclick=''>Refresh token</button>
+    <button class="btn btn-danger" type="button" name="delete" onclick='confirmDelete();'>Delete</button>
+    <button class="btn btn-link" type="button" name="home" onclick='location.href="/"'>Home</button>
+</div>
+</body>
+
+<script>
+
+function confirmDelete() {
+
+	var txt;
+	var r = confirm("Confirm you want to delete the <%= api.provider %> api");
+	if (r == true) {
+	    //txt = <%= api.id %>;
+	    //call delete api sending api.id.
+	} else {
+	    txt = "You pressed Cancel!";
+	}
+	console.log(txt);
+
+}
+</script>
+
+</html>

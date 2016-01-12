@@ -1,3 +1,53 @@
-/
+<!doctype html>
+<html>
+<head>
+    <title>OAuth 2.0 demo</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:50px; }
+    </style>
+</head>
+<body>
+<div class="container">
 
-index.ejs :)
+    <div class="text-center">
+        <h1>OAuth 2.0 demo</h1>
+		<br><br>
+    </div>
+
+    <div class="">
+	    <div class="table-responsive">
+	        <table class="table table-hover col-md-4">
+	        	<thead>
+		        	<tr>
+		        		<th>
+		        			API provider
+		        		</th>
+		        		<th>
+		        			Access token
+		        		</th>
+		        		<th>
+		        		</th>
+		        	</tr>
+	        	</thead>
+	        	<% for (var i=0; i<apis.length; i++){ %>
+	        	<tr>
+	        		<td>
+	        			<a href="/apiprovider?id=<%= apis[i]._id %>"><%= apis[i].provider %></a>
+	        		</td>
+	        		<td>
+	        			<%= apis[i].access_token %>
+	        		</td>
+	        		<td>
+	        			<a href="/apiexplorer?id=<%= apis[i]._id %> ">API explorer</a>
+	        		</td>
+	        	</tr> 
+	        	<% } %>
+	        </table>
+	        <button class="btn btn-primary" type="button" name="create" onclick='location.href="/create"'>Setup API provider</button>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <title>OAuth 2.0 demo</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:50px; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="text-center">
+        <h1>OAuth 2.0 demo</h1>
+        <h3>API explorer</h3><br>
+
+        <!-- <h4><%= api.provider %></h4> -->
+        <div class="">
+	        <form>
+	        	<div class="input-group col-md-10 ">
+				  <span class="input-group-addon" id="basic-addon3"> GET: </span>
+				  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+				</div>
+	        	<button type="submit" class="btn btn-success col-md-2" name="Go">Query</button>
+	        </form>
+	        <br><br><br>
+	        <div class="form-group col-md-12 text-left">
+			  <label for="comment">Response:</label>
+			  <textarea class="form-control" rows="12" id="comment"></textarea>
+			</div>
+    	</div>
+    </div>
+    <button class="btn btn-link" type="button" name="home" onclick='location.href="/"'>Home</button>
+    
+</div>
+</body>
+</html>
