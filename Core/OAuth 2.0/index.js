@@ -22,9 +22,5 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // routes ============================================================
 require('./app/routes.js')(app, ApiProvider, request); // load our routes and pass in our app
 
-console.log(apiprovider);
-console.log(apiprovider.access_token_exists);
-console.log(apiprovider.callback_URI);
-
 app.listen(port);
 console.log('oauth2 demo app is online on ' + port);

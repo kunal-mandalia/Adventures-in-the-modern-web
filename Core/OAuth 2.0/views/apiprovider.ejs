@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
         body         { padding-top:50px; }
+        table {
+                table-layout: fixed;
+                word-wrap: break-word;
+            }
     </style>
 </head>
 <body>
@@ -17,12 +21,12 @@
     </div>
 
 
-    <table class="table table-responsive table-hover col-md-10" >
+    <table class="table table-responsive table-hover" >
     	<tr>
-    		<td>
+    		<td class="col-md-4">
     			authorization_URI
     		</td>
-    		<td>
+    		<td class="col-md-8">
     			<%= api.authorization_URI %>
     		</td>
     	</tr>
@@ -93,7 +97,13 @@
     </table>
 
     <!-- TODO: implement refresh api -->
-	<button class="btn btn-primary" type="button" name="delete" onclick=''>Refresh token</button>
+    <% if(api.refreshable){ %>
+       <button class="btn btn-primary" type="button" name="delete" onclick='location.href="/refreshtoken?id=<%=api.id%>"'>Refresh token</button>
+     <% } else{ %>  
+       <button class="btn btn-primary disabled" type="button" name="delete">Refresh token</button>
+    <% } %>
+
+	
     <button class="btn btn-danger" type="button" name="delete" onclick='confirmDelete();'>Delete</button>
     <button class="btn btn-link" type="button" name="home" onclick='location.href="/"'>Home</button>
 </div>
@@ -103,15 +113,11 @@
 
 function confirmDelete() {
 
-	var txt;
 	var r = confirm("Confirm you want to delete the <%= api.provider %> api");
 	if (r == true) {
-	    //txt = <%= api.id %>;
-	    //call delete api sending api.id.
+	    window.location.href="/deleteprovider?id=<%=api.id%>";
 	} else {
-	    txt = "You pressed Cancel!";
 	}
-	console.log(txt);
 
 }
 </script>

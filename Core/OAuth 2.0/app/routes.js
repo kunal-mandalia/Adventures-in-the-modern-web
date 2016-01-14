@@ -1,4 +1,6 @@
 
+var apiProviderSettings = require('./models/apiprovidersettings.js');
+
 module.exports = function(app, ApiProvider, request) {
 
 // normal routes ===============================================================
@@ -11,12 +13,9 @@ module.exports = function(app, ApiProvider, request) {
         		res.render('error.ejs', { error : err});
 	        }
 	        else{
-	    		console.log('apis: ' + docs);
 	        	res.render('index.ejs', { apis : docs});
 	        }
     	});
-    	
-
     });
 
     app.get('/create', function(req, res){
@@ -47,11 +46,6 @@ module.exports = function(app, ApiProvider, request) {
         res.redirect(api.authorization_URI + params);
 
         //swap authorization code for tokens
-
-    	// api.save(function(err) {
-     //        res.redirect('/');
-     //    });
-
     });
 
     //2. get authorization code
@@ -60,7 +54,7 @@ module.exports = function(app, ApiProvider, request) {
 
         //check req.query.code exists/ is string -> ok. else, error.
         if (req.query.code){
-            console.log('code : ' + req.query.code);
+            // console.log('code : ' + req.query.code);
 
             app.locals.api.authorization_code = req.query.code;
             res.redirect('/gettokens');
@@ -79,70 +73,46 @@ module.exports = function(app, ApiProvider, request) {
     // 3. swap auth code for access token and refresh token
     app.get('/gettokens', function(req, res){
 
-        // POST /oauth2/v4/token HTTP/1.1
-        // Host: www.googleapis.com
-        // Content-Type: application/x-www-form-urlencoded
-
-        // code=4/P7q7W91a-oMsCeLvIaQm6bTrgtp7&
-        // client_id=8819981768.apps.googleusercontent.com&
-        // client_secret={client_secret}&
-        // redirect_uri=https://oauth2-login-demo.appspot.com/code&
-        // grant_type=authorization_code      
-
+        var api_settings = apiProviderSettings.createTokenSettings(app.locals.api);
+        
         request({
-                url: app.locals.api.access_Token_URI, //URL to hit
+            url: app.locals.api.access_Token_URI, //URL to hit
                 qs: {}, //Query string data
                 method: 'POST',
-                //headers: {'Content-Type' : 'application/x-www-form-urlencoded'},
+                headers: api_settings.access_token.headers,
                 //Lets post the following key/values as form
-                form: {
-                        code            : app.locals.api.authorization_code,
-                        client_id       : app.locals.api.client_id,
-                        client_secret   : app.locals.api.client_secret,
-                        redirect_uri    : app.locals.api.callback_URI,
-                        grant_type      : 'authorization_code'  
-                 }   
-                }, function(error, response, body){
-                if(error) {
-                    console.log(error);
-                } else {
-                    console.log(response.statusCode, body);
-                    //ok response
-                    var jsonbody = JSON.parse(body);
-                    //save tokens to mongo
+                form: api_settings.access_token.form
+            }, function(error, response, body){
+            if(error) {
+                 console.log('get tokens error: ' + error);
+            } else {
+                console.log('/gettokens > response.statusCode: ' + response.statusCode);
+                console.log('/gettokens > body: ' + body);
+                //TODO: handle non 200 responses. APIs may fail and instead of sending an error in the error object, it'll be sent to response and must be read. Providers may specify their error variables differently.
+                var jsonbody = JSON.parse(body);
 
-                    app.locals.api.access_token = jsonbody.access_token;
-                    app.locals.api.refresh_token = jsonbody.refresh_token;
+                //add tokens to mongo doc
+                app.locals.api.access_token = jsonbody.access_token;
+                app.locals.api.refresh_token = jsonbody.refresh_token;
 
-                    app.locals.api.save(function(err){return err;});
-
-                    //clear locals
-                    app.locals.api = null;
-                    //check if user exists..if so update token, else create user
-                    //user details not typically supplied in first call..must call again
-                    // var user = new User({
-                    //     user_id: user_id,
-                    //     api: [{
-                    //         provider: app.locals.apiprovider.provider,
-                    //         access_token: jsonbody.access_token,
-                    //         refresh_token: jsonbody.refresh_token,
-                    //         granted_scope: jsonbody.scope
-                    //     }]
-                    // });
-
-                    // console.log('user' + user);
-
-                    // User.update({'api.provider': app.locals.apiprovider.provider}, {'$set': {
-                    //     'api.$.access_token': jsonbody.access_token}}, function(err) {});
-
-                    // var user_provider = {user_id: jsonbody.user_id, api_provider: app.locals.apiprovider.provider};
-                    // app.locals.user_provider = user_provider;
-
-                    console.log('success: aquired access token for api calls, jsonbody : ' + jsonbody);
-
-                    res.redirect('/');
+                if (api_settings.refreshable){ //check if we're working with the default provider or a supported provider. Providers seem to implement refresh tokens differently so support those explicitely specified.
+                    app.locals.api.refreshable = true;
                 }
-            });
+                else{
+                    app.locals.api.refreshable = false;
+                }
+                // console.log('>>>>> provider api_settings: ' + api_settings.refreshable);
+
+                app.locals.api.save(function(err){return err;});
+
+                //clear locals
+                app.locals.api = null;
+
+                // console.log('success: aquired access token for api calls, jsonbody : ' + jsonbody);
+
+                res.redirect('/');
+            }
+        });
     });
 
     app.get('/apiprovider', function(req, res){
@@ -150,15 +120,12 @@ module.exports = function(app, ApiProvider, request) {
         var id = req.query.id;
         var returnDoc;
 
-        ApiProvider.find({_id: id}, function(err, docs){
+        ApiProvider.findOne({_id: id}, function(err, doc){
             if (err){
                 console.log(err);
                 res.redirect('/');
             }
-            returnDoc = docs[0];
-            console.log(returnDoc);
-            console.log(returnDoc.client_secret);
-            res.render('apiprovider.ejs', { "api" : returnDoc });
+            res.render('apiprovider.ejs', { "api" : doc });
         });
     });
 
@@ -167,17 +134,67 @@ module.exports = function(app, ApiProvider, request) {
         var id = req.query.id;
         var returnDoc;
 
-        ApiProvider.find({_id: id}, function(err, docs){
+        ApiProvider.findOne({_id: id}, function(err, doc){
             if (err){
                 console.log(err);
                 res.redirect('/');
             }
-            returnDoc = docs[0];
-            console.log(returnDoc);
-            console.log(returnDoc.client_secret);
-            res.render('apiexplorer.ejs', { "api" : returnDoc });
+            res.render('apiexplorer.ejs', { "api" : doc });
         });
 
     });
 
+    app.get('/refreshtoken', function(req,res){
+
+        ApiProvider.findOne({_id: req.query.id}, function(err, doc){
+
+            if (err){
+                console.log(err);
+                res.redirect('/'); //how to send a message back?
+            }
+
+            var api_settings = apiProviderSettings.createTokenSettings(doc);
+            
+            request({
+                url: doc.access_Token_URI, //URL to hit
+                qs: {}, //Query string data
+                method: 'POST',
+                headers: api_settings.refresh_token.headers,
+                form: api_settings.refresh_token.form
+
+                }, function(error, response, body){
+                if(error) {
+                    console.log(error);
+                } else {
+
+                    var jsonbody = JSON.parse(body);
+
+                    //console.log('respose  : ' + JSON.stringify(response));
+                    //save tokens to mongo
+                    //console.log('api_settings.refresh_toke.form.client_id : ' + api_settings.refresh_token.form.client_id);
+                    doc.access_token = jsonbody.access_token;
+
+                    //update refresh token if provided
+                    if (jsonbody.refresh_token){
+                        doc.refresh_token = jsonbody.refresh_token;
+                    }
+
+                    doc.save(function(err){return err;});
+                    res.render('apiprovider.ejs', { "api" : doc });
+                }
+            });
+        });
+    });
+
+    app.get('/deleteprovider', function(req, res){
+
+        var id = req.query.id;
+
+        ApiProvider.findOneAndRemove({_id: id}, function(err, doc){
+            if (err){
+                console.log(err);
+            }
+           res.redirect('/');
+       });
+    });
 };

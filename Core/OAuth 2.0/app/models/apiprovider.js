@@ -14,7 +14,8 @@ var apiProviderSchema = mongoose.Schema({
 	authorization_code	: String, //after user authorizes, a code will be supplied from api server which can be exchanged for tokens
 	access_token 		: String,
 	refresh_token 		: String,
-	granted_scope 		: String
+	granted_scope 		: String,
+	refreshable			: Boolean //refresh token flow varies between api providers - support only listed apis when it comes to using refresh tokens
 });
 
 // access_token have been set with some value and are not null, the default

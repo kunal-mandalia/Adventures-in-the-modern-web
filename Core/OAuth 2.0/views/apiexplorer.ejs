@@ -13,21 +13,21 @@
 
     <div class="text-center">
         <h1>OAuth 2.0 demo</h1>
-        <h3>API explorer</h3><br>
+        <h3><%= api.provider %> api explorer</h3><br>
 
         <!-- <h4><%= api.provider %></h4> -->
         <div class="">
 	        <form>
 	        	<div class="input-group col-md-10 ">
 				  <span class="input-group-addon" id="basic-addon3"> GET: </span>
-				  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+				  <input type="text" class="form-control" id="endpoint" aria-describedby="basic-addon3" value="https://www.googleapis.com/oauth2/v2/userinfo">
 				</div>
-	        	<button type="submit" class="btn btn-success col-md-2" name="Go">Query</button>
+	        	<button type="button" class="btn btn-success col-md-2" name="Go" onclick="callapi();">Query</button>
 	        </form>
 	        <br><br><br>
 	        <div class="form-group col-md-12 text-left">
 			  <label for="comment">Response:</label>
-			  <textarea class="form-control" rows="12" id="comment"></textarea>
+			  <textarea class="form-control" rows="12" id="response"></textarea>
 			</div>
     	</div>
     </div>
@@ -35,4 +35,31 @@
     
 </div>
 </body>
+
+<script>
+
+function callapi() {
+// GET /drive/v2/files HTTP/1.1
+// Authorization: Bearer 1/fFBGRNJru1FQd44AzqT3Zg
+// Host: googleapis.com
+
+    var endpoint = document.getElementById('endpoint').value;
+    var responsebox = document.getElementById('response');
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            responsebox.value = (xhr.responseText);
+        }
+    }
+
+    xhr.open('GET', endpoint, true);
+    xhr.setRequestHeader('Authorization', 'Bearer <%=api.access_token%>');
+
+    xhr.send(null);
+
+
+}
+</script>
+
 </html>

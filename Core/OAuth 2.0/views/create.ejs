@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
         body         { padding-top:50px; }
+        table {
+                table-layout: fixed;
+                word-wrap: break-word;
+            }
     </style>
 </head>
 <body>
@@ -22,7 +26,7 @@
             <input type="text" class="form-control" name="access_Token_URI" value="access_Token_URI"></input><br>
             <input type="text" class="form-control" name="client_id" value="client_id"></input><br>
             <input type="text" class="form-control" name="client_secret" value="client_secret"></input><br>
-            <input type="scope" class="form-control" name="scope" value="client_id"></input><br><br>
+            <input type="scope" class="form-control" name="scope" value="scope"></input><br><br>
 
             <button class="btn btn-success" type="submit" name="submit">Create</button>
             <button class="btn btn-default" type="button" name="cancel" onclick='location.href="/"'>Cancel</button>

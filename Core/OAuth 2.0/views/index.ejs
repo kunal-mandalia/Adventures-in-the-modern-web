@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
         body         { padding-top:50px; }
+        table {
+		    table-layout: fixed;
+		    word-wrap: break-word;
+		}
     </style>
 </head>
 <body>
@@ -16,18 +20,16 @@
 		<br><br>
     </div>
 
-    <div class="">
-	    <div class="table-responsive">
-	        <table class="table table-hover col-md-4">
+	        <table class="table table-hover table-responsive">
 	        	<thead>
 		        	<tr>
-		        		<th>
+		        		<th class="col-md-2">
 		        			API provider
 		        		</th>
-		        		<th>
+		        		<th class="col-md-8">
 		        			Access token
 		        		</th>
-		        		<th>
+		        		<th class="col-md-2">
 		        		</th>
 		        	</tr>
 	        	</thead>
@@ -46,7 +48,6 @@
 	        	<% } %>
 	        </table>
 	        <button class="btn btn-primary" type="button" name="create" onclick='location.href="/create"'>Setup API provider</button>
-		</div>
 	</div>
 </div>
 </body>
