@@ -11,14 +11,14 @@ I wanted to get a better understanding of what's sent over the wire to the user 
 - Click Setup API provider to add details of your registered app e.g. your google app, facebook app, etc.
 - api access tokens will be requested, all going to plan you should see something like this:
 
-![](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/Core/OAuth%202.0/images/index.png)
+![](images/index.png)
 
 Click API explorer and provide the endpoint to send a get request to (think very simple postman) e.g.
 
-![](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/Core/OAuth%202.0/images/apiexplorer.png)
+![](images/apiexplorer.png)
 
 If you get a bad response due to expired tokens, you can refresh (only google and fitbit) tokens; on the home screen click on the api provider's name and then Refresh token.
 
-![](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/Core/OAuth%202.0/images/apiprovider.png)
+![](images/apiprovider.png)
 
 App structure (folder layout) inspired by https://scotch.io/tutorials/easy-node-authentication-setup-and-local

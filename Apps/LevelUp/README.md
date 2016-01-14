@@ -39,7 +39,7 @@ The typical journey for the end-user will start with them accessing http://level
 ##### Components
 The UI blocks as outlined in the storyboard can be thought of as components; header navigation, sidebar filter menu, goal / action boxes, etc. The Goal / Action boxes deserve special mention. (SMART) Goals describe a particular state in the future e.g. by Q2 2016 work full time as a full stack javascript engineer. Goals don’t however say how you’re going to achieve them, instead we need something to tie together the day to day activities which help us achieve our goals, we’ll call these Actions. Actions are practical actionable goals that help form the everyday habits required to achieve (bigger) goals, e.g. Dedicate 4 hours a day developing 2 full stack javascript apps until Q1 2016. Actions are measured frequently, typically daily or weekly, they’re the pulse of the goal.
 
-![](images/Components.png)
+![](images/components.png)
 
 ### Frontend decisions
 I’ll be using Angular 1,x on as the frontend framework. Despite React gaining much popularity, just getting some experience of MV* on the client side will be a beneficial learning experience, it’s also 100% JavaScript hence meeting user story 7. Material Design Lite by Google will be used to turn the app responsive addressing user story 6, and also provide a clean modern design.
