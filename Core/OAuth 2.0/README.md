@@ -2,13 +2,13 @@
 
 I wanted to get a better understanding of what's sent over the wire to the user and api servers when obtaining tokens and making requests with them. This app lets you setup registered (google, fitbit, etc) apps, manage access tokens, and make api requests.
 
-Instructions
+### Instructions
 
-Download repo
-Change directory to OAuth2 folder
-Run `npm install` in terminal
-Run `node index.js` in terminal
-Click Setup API provider to add details of your registered app e.g. your google app, facebook app, etc.
+- Download repo
+- Change directory to OAuth2 folder
+- Run `npm install` in terminal
+- Run `node index.js` in terminal
+- Click Setup API provider to add details of your registered app e.g. your google app, facebook app, etc.
 - api access tokens will be requested, all going to plan you should see something like this:
 
 ![](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/Core/OAuth%202.0/images/index.png)
