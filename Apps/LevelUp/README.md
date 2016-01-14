@@ -34,12 +34,12 @@ Although this app will not be created as a native mobile app (at least at the ti
 ##### Storyboard
 The typical journey for the end-user will start with them accessing http://levelup.kunalmandalia.com/ I’ve chosen to host the app as a subdomain on my personal site for simplicity, this may change. The user will see a live demo account, which they can take for a spin to get a feel for how goals and actions work and then register for an account. This demo account will have its goals and actions reset every hour. Once registered, the user can add a goal and then actions, and track them. There’ll also be an option for the user to share their goal as per user story 5, so the end user may access LevelUp via a link from their friend showing their live progress.
 
-![](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/LevelUp/images/storyboard.png)
+![](images/storyboard.png)
 
 ##### Components
 The UI blocks as outlined in the storyboard can be thought of as components; header navigation, sidebar filter menu, goal / action boxes, etc. The Goal / Action boxes deserve special mention. (SMART) Goals describe a particular state in the future e.g. by Q2 2016 work full time as a full stack javascript engineer. Goals don’t however say how you’re going to achieve them, instead we need something to tie together the day to day activities which help us achieve our goals, we’ll call these Actions. Actions are practical actionable goals that help form the everyday habits required to achieve (bigger) goals, e.g. Dedicate 4 hours a day developing 2 full stack javascript apps until Q1 2016. Actions are measured frequently, typically daily or weekly, they’re the pulse of the goal.
 
-![](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/LevelUp/images/Components.png)
+![](images/Components.png)
 
 ### Frontend decisions
 I’ll be using Angular 1,x on as the frontend framework. Despite React gaining much popularity, just getting some experience of MV* on the client side will be a beneficial learning experience, it’s also 100% JavaScript hence meeting user story 7. Material Design Lite by Google will be used to turn the app responsive addressing user story 6, and also provide a clean modern design.
@@ -52,7 +52,7 @@ The app will sit on a Node.js server. Node was chosen because it runs JavaScript
 MongoDB will be the backend NoSQL database used to persist the following collections of data; user, goal, action, history
 
 The relationship between these collections is as follows:
-![](https://github.com/kunal-mandalia/Adventures-in-the-modern-web/blob/master/LevelUp/images/collectionrelationships.png)
+![](images/collectionrelationships.png)
 
 The primary reason for choosing MongoDB is that it runs JavaScript hence addressing user story 7. Mongoose will be used to enforce the following schemas for the mentioned collections:
 
