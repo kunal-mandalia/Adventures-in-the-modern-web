@@ -9,12 +9,6 @@ var bodyParser  = require('body-parser');
 
 mongoose.connect('mongodb://localhost/oauth2');
 
-
-var apiprovider = new ApiProvider({
-	provider: 'google',
-	access_token: '432432'
-});
-
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 app.use(bodyParser.json()); // support json encoded bodies
