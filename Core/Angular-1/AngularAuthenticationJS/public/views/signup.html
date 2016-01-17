@@ -1,32 +1,59 @@
-<h1>Sign up</h1>
+<div layout="row" layout-align="center center">
+  <form ng-submit="signup()">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Sign up</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content layout="column">
+          <md-input-container>
+            <label>First name</label>
+            <input ng-model="signup.firstname" type="text"></input>
+          </md-input-container>
+          <md-input-container>
+            <label>Last name</label>
+            <input ng-model="signup.lastname" type="text"></input>
+          </md-input-container>
+          <md-input-container>
+            <label>Email address</label>
+            <input ng-model="signup.email" type="email"></input>
+          </md-input-container>
+          <md-input-container>
+            <label>Password</label>
+            <input ng-model="signup.password1" type="password"></input>
+          </md-input-container>
+          <md-input-container>
+            <label>Confirm password</label>
+            <input ng-model="signup.password2" type="password"></input>
+          </md-input-container>
+      </md-card-content>
+      <md-card-actions layout="column" layout-align="start">
+        <md-button class="md-raised md-primary" ng-click="signup()">Sign up</md-button>
+      </md-card-actions>
+    </md-card>
+  </form>
 
-<form ng-submit="signup()">
-  <p>
-    <label class="control-label">First name</label>
-  	<input type="text" placeholder="John" ng-model="user.firstname" />
-  </p>
-  <p>
-    <label class="control-label">Last name</label>
-    <input type="text" placeholder="Doe" ng-model="user.firstname" />
-  </p>
-  <p>
-    <label class="control-label">Email address</label>
-    <input type="text" placeholder="johndoe@example.com" ng-model="user.email" />
-  </p>
-  <p>
-    <label class="control-label">Password</label>
-    <input type="password" placeholder="Password" ng-model="user.password1" />
-  </p>
-  <p>
-    <label class="control-label">Password again</label>
-    <input type="password" placeholder="Password" ng-model="user.password2" />
-  </p>
-  <p>
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-  </p>
-</form>
+  <div>
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Social sign up</span>
+        </md-card-title-text>
+      </md-card-title>
 
-Or signup with <a href="/auth/google">Google</a> <a href="/auth/twitter">Twitter</a> <a href="/auth/github">Github</a>
+      <md-card-actions layout="column">
+        <md-button class="md-primary md-hue-1" ng-href="/auth/google">Google</md-button>
+        <md-button class="md-primary md-hue-1" ng-href="/auth/twitter">Twitter</md-button>
+        <md-button class="md-primary md-hue-1" ng-href="/auth/github">Github</md-button>
+      </md-card-actions>
 
+    </md-card>
+  </div>
+</div>
 
-<h3>Already signed up? <a href="#/login">Sign in</a></h3>
+<div layout="row" layout-align="center center">
+ <h2>Already signed up?</h2>
+      <md-button class="md-raised md-warn" ng-href="#/login">Sign in</button>
+</div>
+

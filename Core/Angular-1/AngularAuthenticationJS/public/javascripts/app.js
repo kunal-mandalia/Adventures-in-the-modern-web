@@ -84,6 +84,9 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngAria',
       .when('/login-material', {
         templateUrl: 'views/login-material.html'
       })
+      .when('/signup-material', {
+        templateUrl: 'views/signup-material.html'
+      })
       .otherwise({
         redirectTo: '/'
       });

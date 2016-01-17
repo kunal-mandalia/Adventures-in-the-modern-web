@@ -16,3 +16,9 @@ body {
 .menu-toolbar {
 	/*background-color:rgba(63, 81, 181, 0.25) !important;*/
 }
+
+.signup-box {
+	/*min-width: 300px;*/
+	/*max-width: 600px;*/
+	width: 350px;
+}
