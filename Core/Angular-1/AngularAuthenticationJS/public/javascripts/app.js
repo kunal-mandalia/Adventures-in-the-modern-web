@@ -4,7 +4,16 @@
  * Angular Application
  **********************************************************************/
 var app = angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial', 'ngMdIcons'])
-  .config(function($routeProvider, $locationProvider, $httpProvider) {
+  .config(function($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider) {
+    
+  var darkBlueMap = $mdThemingProvider.extendPalette('blue', {
+    '500': '3470ce'
+  });
+  // Register the new color palette map with the name <code>neonRed</code>
+  $mdThemingProvider.definePalette('darkBlue', darkBlueMap);
+  // Use that theme for the primary intentions
+  $mdThemingProvider.theme('default')
+    .primaryPalette('darkBlue');
     //================================================
     // Check if the user is connected
     //================================================
