@@ -1,8 +1,18 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color: #F1F1F1;
+	background-image: url("/images/woodtexture.jpg");
+	background-size:cover;
 }
 
-a {
-  color: #00B7FF;
+.menu-icon {
+	fill: white;
+}
+
+.login-box {
+	padding-top: 2em;
+	padding-bottom: 2em;
+}
+
+.menu-toolbar {
+	background-color:rgba(63, 81, 181, 0.25) !important;
 }

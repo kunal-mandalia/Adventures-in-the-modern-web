@@ -3,7 +3,7 @@
 /**********************************************************************
  * Angular Application
  **********************************************************************/
-var app = angular.module('app', ['ngResource', 'ngRoute'])
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial', 'ngMdIcons'])
   .config(function($routeProvider, $locationProvider, $httpProvider) {
     //================================================
     // Check if the user is connected
@@ -68,6 +68,13 @@ var app = angular.module('app', ['ngResource', 'ngRoute'])
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/signup', {
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl'
+      })
+      .when('/login-material', {
+        templateUrl: 'views/login-material.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -109,6 +116,21 @@ app.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
       $location.url('/login');
     });
   };
+
+    $scope.loginGoogle = function(){
+    $http.get('/auth/google', {
+    })
+    .success(function(user){
+      // No error: authentication OK
+      console.log('logged in as : ' + user);
+    })
+    .error(function(){
+      // Error: authentication failed
+      $rootScope.message = 'Authentication failed.';
+      $location.url('/login');
+    });
+  };
+
 });
 
 
@@ -125,4 +147,13 @@ app.controller('AdminCtrl', function($scope, $http) {
     for (var i in users)
       $scope.users.push(users[i]);
   });
+});
+
+/**********************************************************************
+ * Signup controller
+ **********************************************************************/
+app.controller('SignupCtrl', function($scope, $http) {
+  // List of users got from the server
+  $scope.users = [];
+
 });
