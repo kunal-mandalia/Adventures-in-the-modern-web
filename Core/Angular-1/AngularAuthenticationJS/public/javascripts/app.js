@@ -66,9 +66,9 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngAria',
       .when('/', {
         templateUrl: '/views/main.html'
       })
-      .when('/admin', {
-        templateUrl: 'views/admin.html',
-        controller: 'AdminCtrl',
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl',
         resolve: {
           loggedin: checkLoggedin
         }
@@ -80,12 +80,6 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngAria',
       .when('/signup', {
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
-      })
-      .when('/login-material', {
-        templateUrl: 'views/login-material.html'
-      })
-      .when('/signup-material', {
-        templateUrl: 'views/signup-material.html'
       })
       .otherwise({
         redirectTo: '/'
@@ -110,21 +104,23 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngAria',
 app.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
   // This object will be filled by the form
   $scope.user = {};
+  $scope.loginStatus = "";
 
   // Register the login() function
   $scope.login = function(){
     $http.post('/login', {
       username: $scope.user.username,
-      password: $scope.user.password,
+      password: $scope.user.password
     })
     .success(function(user){
       // No error: authentication OK
-      $rootScope.message = 'Authentication successful!';
-      $location.url('/admin');
+      $rootScope.message = 'Authentication successful! via google';
+      $location.url('/dashboard');
     })
     .error(function(){
       // Error: authentication failed
       $rootScope.message = 'Authentication failed.';
+      $scope.loginStatus = "Invalid details";
       $location.url('/login');
     });
   };
@@ -135,6 +131,7 @@ app.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
     .success(function(user){
       // No error: authentication OK
       console.log('logged in as : ' + user);
+      $location.url('/#/dashboard');
     })
     .error(function(){
       // Error: authentication failed
@@ -148,24 +145,54 @@ app.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
 
 
 /**********************************************************************
- * Admin controller
+ * Dashboard controller
  **********************************************************************/
-app.controller('AdminCtrl', function($scope, $http) {
+app.controller('DashboardCtrl', function(UserDetails, $scope, $http) {
   // List of users got from the server
   $scope.users = [];
+  $scope.me = [];
 
-  // Fill the array to display it in the page
-  $http.get('/users').success(function(users){
-    for (var i in users)
-      $scope.users.push(users[i]);
-  });
+  getMyDetails();
+
+    function getMyDetails() {
+        UserDetails.getMyDetails()
+            .success(function (me) {
+                // $scope.customers = custs;
+                $scope.me.email = me;
+                console.log(JSON.stringify(me));
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
+            });
+    }
 });
 
 /**********************************************************************
  * Signup controller
  **********************************************************************/
-app.controller('SignupCtrl', function($scope, $http) {
+app.controller('SignupCtrl', function($scope, $http, $location) {
   // List of users got from the server
-  $scope.users = [];
+  $scope.newUser = $location.search();
 
+  //http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+  var newUserKeyLength = Object.keys($scope.newUser).length;
+  if (newUserKeyLength>0){
+    $scope.signupNotification = "Almost there";
+  }
+
+  // console.log('newUser: ' + JSON.stringify($location.search()));
+});
+
+
+//factory
+app.factory('UserDetails', function($http) {
+     
+    var factory = {}; 
+ 
+
+    return {
+        getMyDetails: function() {
+            return $http.get('/api/me');
+        }
+    };
 });

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "angular": "^1.4.8",
@@ -12,8 +12,10 @@
     "angular-material": "^1.0.2",
     "ejs": "*",
     "express": "3.3.5",
+    "mongoose": "^4.3.6",
     "passport": "*",
     "passport-google-oauth": "^0.2.0",
-    "passport-local": "*"
+    "passport-local": "*",
+    "request": "^2.67.0"
   }
 }

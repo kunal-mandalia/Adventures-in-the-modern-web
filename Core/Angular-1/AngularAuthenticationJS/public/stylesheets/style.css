@@ -1,6 +1,6 @@
 body {
 	background-color: rgba(0, 0, 0, 0.08);
-	/*background-image: url("/images/4866087055_c0bce09ea0_b.jpg");
+	/*background-image: url("/images/minimalism_gradient_glow_blue.jpg");
 	background-size:cover;*/
 }
 
@@ -21,4 +21,20 @@ body {
 	/*min-width: 300px;*/
 	/*max-width: 600px;*/
 	width: 350px;
+}
+
+.main-selling-point{
+	font-weight: bold;
+    font-size: xx-large;
+    text-align: center;
+    margin-top: 100px;
+    padding: 10px;
+}
+
+.invalid {
+  color: red;
+}
+
+.newUser {
+  color: green;
 }
