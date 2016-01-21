@@ -35,6 +35,10 @@ body {
   color: red;
 }
 
-.newUser {
+.newSocialUser {
   color: green;
+}
+
+.newUserError {
+  color: red;
 }
