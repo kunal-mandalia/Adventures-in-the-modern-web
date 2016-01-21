@@ -1,7 +1,7 @@
 var auth = require('./models/auth.js');
 var passport = require('passport');
 
-module.exports = function(app) {
+module.exports = function(app, User, bcrypt) {
 
 	app.get('/', function(req, res){
 	  res.render(__dirname + '/views/index.ejs', { title: 'Express' });
@@ -65,5 +65,61 @@ module.exports = function(app) {
 	      return res.redirect('/#/dashboard');
 	    });
 	  })(req, res, next);
+	});
+
+	app.post('/registerUser', function(req, res){
+		// 1. validate all fields are present 2. validate passwords match
+		if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password1 || !req.body.password2 || (req.body.password1 !== req.body.password2)){
+			console.log('bad request');
+			
+			res.status(400);
+			res.send('Try again');
+
+		} 
+		else
+		{
+			//3. check if user exists
+			User.findOne({email:req.body.email}, function(err, user){
+				if(err){
+					res.status(400);
+					res.send('Server error');
+				}else{
+					if(user){
+						res.status(400);
+						res.send('User already exists');
+					}else{
+						//4. create user: hash password
+						bcrypt.hash(req.body.password1, 8, function(err, hash) {
+							if (err){
+								res.status(400);
+								res.send('Server error');
+							}
+							else {
+								
+								var newUser = new User({ firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, password: hash });
+								newUser.save(function (err, user) {
+								  if (err) {
+								  	res.status(400);
+									res.send('Server error');
+								  }
+								  else{
+								  	req.logIn(user, function (err) {
+						                if(err){
+						                    res.status(400);
+											res.send('Server error');
+						                }else{
+						                	res.status(200);
+						                	res.end(); //redirect clientside
+						                    //return res.redirect('/#/dashboard');
+						                }
+						            });
+								  }
+								});
+							}
+						});
+					}
+				}
+			});
+		}
 	});
 };

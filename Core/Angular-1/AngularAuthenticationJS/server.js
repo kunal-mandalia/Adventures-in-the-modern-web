@@ -7,6 +7,8 @@ var request = require('request');
 var auth = require('./app/models/auth.js');
 var env = require('./config/environmentVariables.js');
 var User = require('./app/models/user.js');
+var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -18,12 +20,17 @@ mongoose.connect(env.db);
 //==================================================================
 // Define the strategy to be used by PassportJS
 passport.use(new LocalStrategy(
-  function(email, password, done) {
+  function(username, password, done) {
 
-    User.findOne({email:email, password:password}, function(err,user){
+    //1. check user's email exists
+    //2. check if a hased version of the password provided matches the password hash saved on mongo
+    User.findOne({email:username}, function(err,user){
         if (err) { return done(err); }
         if (!user) { return done(null, false); }
-        // if (!user.verifyPassword(password)) { return done(null, false); }
+
+        var passwordMatches = bcrypt.compareSync(password, user.password);
+        //console.log('passwordMatches: ' + passwordMatches);
+        if (!passwordMatches) { return done(null, false); }
         return done(null, user);
     });
   }
@@ -66,6 +73,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+// Github strategy
 passport.use(new GithubStrategy({
     clientID: passportConfig["Github"].clientID,
     clientSecret: passportConfig["Github"].clientSecret,
@@ -169,6 +177,11 @@ app.use(passport.session());    // Add passport initialization
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 // development only
 if ('development' == app.get('env')) {
@@ -176,7 +189,7 @@ if ('development' == app.get('env')) {
 }
 
 //load routes
-routes(app);
+routes(app, User, bcrypt);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

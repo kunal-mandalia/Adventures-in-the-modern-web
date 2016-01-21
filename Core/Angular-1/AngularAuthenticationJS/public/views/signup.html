@@ -3,7 +3,7 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Sign up<div class="newUser">{{signupNotification}}</div></span>
+          <span class="md-headline">Sign up <div ng-class="{ newSocialUser: signupNotification == 'Almost there', newUserError: signupNotification !== 'Almost there' }">{{signupNotification}}</div></span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content layout="column">
@@ -29,7 +29,7 @@
           </md-input-container>
       </md-card-content>
       <md-card-actions layout="column" layout-align="start">
-        <md-button class="md-raised md-primary" ng-click="signup()">Sign up</md-button>
+        <md-button class="md-raised md-primary" ng-click="registerUser()">Sign up</md-button>
       </md-card-actions>
     </md-card>
   </form>

@@ -180,6 +180,22 @@ app.controller('SignupCtrl', function($scope, $http, $location) {
     $scope.signupNotification = "Almost there";
   }
 
+  $scope.registerUser = function() {
+    console.log('registerUser...');
+    $http.post('/registerUser', $scope.newUser)
+        .then(function successCallback(response) {
+          // this callback will be called asynchronously
+          // when the response is available
+          $location.path('/dashboard');
+          console.log('angular: registered user successfully');
+        }, function errorCallback(response) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+          $scope.signupNotification = response.data;
+          console.log(response.data);
+        });
+  }
+
   // console.log('newUser: ' + JSON.stringify($location.search()));
 });
 
@@ -187,9 +203,7 @@ app.controller('SignupCtrl', function($scope, $http, $location) {
 //factory
 app.factory('UserDetails', function($http) {
      
-    var factory = {}; 
- 
-
+    var factory = {};
     return {
         getMyDetails: function() {
             return $http.get('/api/me');
