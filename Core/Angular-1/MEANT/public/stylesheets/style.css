@@ -1,5 +1,5 @@
 body {
-	background-color: rgba(0, 0, 0, 0.08);
+	background-color: rgba(235,235,235,1);
 	/*background-image: url("/images/minimalism_gradient_glow_blue.jpg");
 	background-size:cover;*/
 }
@@ -41,4 +41,8 @@ body {
 
 .newUserError {
   color: red;
+}
+
+.page{
+	background-color: rgba(235,235,235,1);
 }

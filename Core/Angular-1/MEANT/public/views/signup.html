@@ -1,4 +1,6 @@
-<div layout="row" layout-align="center center">
+<div class="page">
+
+<div layout="row" layout-align="center center" layout-wrap>
   <form ng-submit="signup()">
     <md-card>
       <md-card-title>
@@ -51,8 +53,9 @@
   </div>
 </div>
 
-<div layout="row" layout-align="center center">
- <h2>Already signed up?</h2>
+<div layout="row" layout-align="center center" hide-xs>
+ <div hide-sm><h2>Already signed up?</h2></div>
       <md-button class="md-raised md-warn" ng-href="#/login">Login</button>
 </div>
 
+</div>

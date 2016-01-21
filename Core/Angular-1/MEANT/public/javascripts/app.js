@@ -13,7 +13,7 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngAria',
   $mdThemingProvider.definePalette('darkBlue', darkBlueMap);
   // Use that theme for the primary intentions
   $mdThemingProvider.theme('default')
-    .primaryPalette('darkBlue');
+    .primaryPalette('darkBlue')
     //================================================
     // Check if the user is connected
     //================================================
